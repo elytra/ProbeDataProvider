@@ -1,15 +1,21 @@
 package io.github.elytra.probe.api.impl;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import com.google.common.collect.ImmutableList;
+
 import io.github.elytra.probe.api.IProbeData;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 public class ProbeData implements IProbeData {
-	private ResourceLocation icon = null;
 	private String label = null;
 	private int barMin = -1;
 	private int barCur = -1;
 	private int barMax = -1;
 	private String barUnit = null;
+	private ImmutableList<ItemStack> inventory = null;
 	
 	/**
 	 * Creates a blank data line
@@ -22,24 +28,6 @@ public class ProbeData implements IProbeData {
 	 */
 	public ProbeData(String label) {
 		this.label = label;
-	}
-	
-	/**
-	 * Creates a data line with an icon
-	 * @param icon the icon to be displayed on this line
-	 */
-	public ProbeData(ResourceLocation icon) {
-		this.icon = icon;
-	}
-	
-	/**
-	 * Adds an icon to this ProbeData
-	 * @param icon the icon to add to this ProbeData
-	 * @return this ProbeData
-	 */
-	public ProbeData withIcon(ResourceLocation icon) {
-		this.icon = icon;
-		return this;
 	}
 	
 	/**
@@ -68,14 +56,19 @@ public class ProbeData implements IProbeData {
 		return this;
 	}
 	
-	@Override
-	public boolean hasIcon() {
-		return icon!=null;
+	/**
+	 * Adds an inventory to this ProbeData
+	 * @param inventory the contents of all itemslots, full or empty, in this datum.
+	 * @return this ProbeData
+	 */
+	public ProbeData withInventory(@Nonnull ImmutableList<ItemStack> inventory) {
+		this.inventory = inventory;
+		return this;
 	}
 
 	@Override
 	public boolean hasLabel() {
-		return label!=null;
+		return label!=null && !label.isEmpty();
 	}
 
 	@Override
@@ -84,13 +77,9 @@ public class ProbeData implements IProbeData {
 	}
 
 	@Override
-	public ResourceLocation getIcon() {
-		return icon;
-	}
-
-	@Override
+	@Nonnull
 	public String getLabel() {
-		return label;
+		return label!=null ? label : "";
 	}
 
 	@Override
@@ -109,8 +98,20 @@ public class ProbeData implements IProbeData {
 	}
 
 	@Override
+	@Nonnull
 	public String getBarUnit() {
-		return barUnit;
+		return barUnit!=null ? barUnit : "";
+	}
+
+	@Override
+	public boolean hasInventory() {
+		return inventory!=null;
+	}
+
+	@Override
+	@Nullable
+	public ImmutableList<ItemStack> getInventory() {
+		return inventory;
 	}
 
 }
