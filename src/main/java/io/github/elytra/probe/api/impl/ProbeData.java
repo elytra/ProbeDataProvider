@@ -7,10 +7,11 @@ import com.google.common.collect.ImmutableList;
 
 import io.github.elytra.probe.api.IProbeData;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
 
 public class ProbeData implements IProbeData {
-	private String label = null;
+	private ITextComponent label = null;
 	private int barMin = -1;
 	private int barCur = -1;
 	private int barMax = -1;
@@ -27,6 +28,14 @@ public class ProbeData implements IProbeData {
 	 * @param label the information to be displayed on this line
 	 */
 	public ProbeData(String label) {
+		this.label = new TextComponentString(label);
+	}
+	
+	/**
+	 * Creates a data line with text information
+	 * @param label the information to be displayed on this line
+	 */
+	public ProbeData(ITextComponent label) {
 		this.label = label;
 	}
 	
@@ -36,7 +45,22 @@ public class ProbeData implements IProbeData {
 	 * @return this ProbeData
 	 */
 	public ProbeData withLabel(String label) {
-		this.label = label;
+		this.label = new TextComponentString(label);
+		return this;
+	}
+	
+	/**
+	 * Adds an label to this ProbeData
+	 * @param label the text to add to this ProbeData
+	 * @return this ProbeData
+	 */
+	public ProbeData withLabel(ITextComponent label) {
+		//TODO: Consider making multiple withLabel calls concatenate them. That might just wind up being confusing and irreversible.
+		//if (this.label==null) {
+			this.label = label;
+		//} else {
+		//	this.label = this.label.appendSibling(label);
+		//}
 		return this;
 	}
 	
@@ -68,7 +92,7 @@ public class ProbeData implements IProbeData {
 
 	@Override
 	public boolean hasLabel() {
-		return label!=null && !label.isEmpty();
+		return label!=null;
 	}
 
 	@Override
@@ -78,8 +102,8 @@ public class ProbeData implements IProbeData {
 
 	@Override
 	@Nonnull
-	public String getLabel() {
-		return label!=null ? label : "";
+	public ITextComponent getLabel() {
+		return label!=null ? label : new TextComponentString("");
 	}
 
 	@Override

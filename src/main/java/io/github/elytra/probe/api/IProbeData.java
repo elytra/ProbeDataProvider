@@ -5,6 +5,7 @@ import javax.annotation.Nonnull;
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.ITextComponent;
 
 /**
  * <p>Represents a single "line item" of probe information. Usually a ProbeData represents the output from one
@@ -80,7 +81,7 @@ public interface IProbeData {
 	 * @return the textual label part of this ProbeData
 	 */
 	@Nonnull
-	public String getLabel();
+	public ITextComponent getLabel();
 	
 	/**
 	 * Gets the minimum quantity expressable on this ProbeData's bar. If the current and minimum of the bar are the same,
