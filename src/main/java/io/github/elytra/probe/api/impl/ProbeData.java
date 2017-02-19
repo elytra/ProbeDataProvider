@@ -1,5 +1,7 @@
 package io.github.elytra.probe.api.impl;
 
+import java.util.List;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -137,5 +139,101 @@ public class ProbeData implements IProbeData {
 	public ImmutableList<ItemStack> getInventory() {
 		return inventory;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + barCur;
+		result = prime * result + barMax;
+		result = prime * result + barMin;
+		result = prime * result + ((barUnit == null) ? 0 : barUnit.hashCode());
+		result = prime * result + ((inventory == null) ? 0 : stackListHashCode(inventory));
+		try {
+			result = prime * result + ((label == null) ? 0 : label.hashCode());
+		} catch (NullPointerException e) {
+			// Some TextComponent implementations have broken hashCode methods
+			// Ignore Mojang's quality code
+		}
+		return result;
+	}
+
+	private static int stackListHashCode(List<ItemStack> li) {
+		int result = 1;
+		for (ItemStack is : li) {
+			result = 31 * result + (is == null ? 0 : stackHashCode(is));
+		}
+		return result;
+	}
+
+	private static int stackHashCode(ItemStack is) {
+		if (is.isEmpty()) return 0;
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + is.getItem().hashCode();
+		result = prime * result + is.getCount();
+		result = prime * result + is.getMetadata();
+		result = prime * result + (is.hasTagCompound() ? is.getTagCompound().hashCode() : 0);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		ProbeData other = (ProbeData) obj;
+		if (barCur != other.barCur) {
+			return false;
+		}
+		if (barMax != other.barMax) {
+			return false;
+		}
+		if (barMin != other.barMin) {
+			return false;
+		}
+		if (barUnit == null) {
+			if (other.barUnit != null) {
+				return false;
+			}
+		} else if (!barUnit.equals(other.barUnit)) {
+			return false;
+		}
+		if (inventory == null) {
+			if (other.inventory != null) {
+				return false;
+			}
+		} else if (!stackListsEqual(inventory, other.inventory)) {
+			return false;
+		}
+		if (label == null) {
+			if (other.label != null) {
+				return false;
+			}
+		} else if (!label.equals(other.label)) {
+			return false;
+		}
+		return true;
+	}
+
+	private static boolean stackListsEqual(List<ItemStack> a, List<ItemStack> b) {
+		if (a.size() != b.size()) return false;
+		for (int i = 0; i < a.size(); i++) {
+			ItemStack isa = a.get(i);
+			ItemStack isb = b.get(i);
+			if (!ItemStack.areItemStacksEqual(isa, isb)) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	
 
 }
