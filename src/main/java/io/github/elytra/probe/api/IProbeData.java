@@ -41,11 +41,15 @@ import net.minecraft.util.text.ITextComponent;
  * the bar and render only the number and its units.
  * </ul></p>
  * 
- * <p>DataProviders are encouraged to present numbers in single units, so that the probe implementation can respect
- * user settings regarding abbreviation. Providers should present numbers in the smallest granularity they support, even
- * when units like "mB" may receive ridiculous abbreviations like "kmB" - it's the responsibility of the probe
- * implementation to special-case this if it wants more user-friendly or less ridiculous numbers. Providers should also
- * strive not to change units from frame to frame. Changing units makes probe automation much more difficult.
+ * <p>DataProviders are encouraged to present numbers in single whole-numbered units, so that the probe implementation
+ * can respect user settings regarding abbreviation and SI prefixing. This means single RF even in blocks that store
+ * quadrillions, and whole buckets of fluids instead of millibuckets. Providers should also strive not to change units
+ * from frame to frame unless the bar actually refers to a new substance or quality (such as a different liquid in a
+ * tank, or running out of one kind of power and switching to using a different one).
+ * 
+ * <p>When creating custom bar units, make sure to register them with {@link UnitDictionary} on both the client and the
+ * server, and give the unit a unique fullName. Feel free to use the static units declared in that class as well, either
+ * directly, or as a model for how custom units should look.
  * 
  * <h2>Inventory</h2>
  * <p><ul>
