@@ -15,8 +15,8 @@ public class Unit implements IUnit {
 	private final String name;
 	private final String abbreviation;
 	private final int barColor;
-	private final NumberFormat format;
-	private final boolean spaceAfterNumber;
+	protected final NumberFormat format;
+	protected final boolean spaceAfterNumber;
 	
 	public Unit(String name, String abbreviation) {
 		this(name, abbreviation, 0xAAAAAA, FORMAT_STANDARD, true);
