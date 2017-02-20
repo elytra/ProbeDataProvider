@@ -1,5 +1,6 @@
 package com.elytradev.probe.api;
 
+import java.text.NumberFormat;
 import java.util.HashMap;
 
 import javax.annotation.Nullable;
@@ -14,7 +15,6 @@ import net.minecraftforge.fluids.Fluid;
  * server.
  */
 public class UnitDictionary {
-	
 	private static UnitDictionary INSTANCE;
 	
 	//Fluids
@@ -36,7 +36,7 @@ public class UnitDictionary {
 	//Temperature for ITemperature
 	public static final Unit KELVIN            = new Unit("kelvin",           "°K",  0xFF0000); //Programmer Red
 	
-	public static final Unit PERCENT           = new Unit("percent",          "%");
+	public static final Unit PERCENT           = new Unit("percent",           "%",  0xAAAAAA, NumberFormat.getIntegerInstance(), false);
 	
 	
 	public static final UnitDictionary getInstance() {
@@ -51,11 +51,6 @@ public class UnitDictionary {
 	
 	private UnitDictionary() {
 		register(BUCKETS_ANY);
-		//register(BUCKETS_WATER);
-		//register(BUCKETS_LAVA);
-		//register(BUCKETS_REDSTONE);
-		//register(BUCKETS_OIL);
-		//register(BUCKETS_STEAM);
 		
 		register(BYTES);
 		
