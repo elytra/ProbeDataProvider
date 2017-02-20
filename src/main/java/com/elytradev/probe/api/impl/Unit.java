@@ -56,35 +56,39 @@ public class Unit implements IUnit {
 	}
 	
 	public static String formatSI(double d, IUnit u) {
-		if (d>HELLA) {
+		if (d==0) return FORMAT.format(d)+" "+u.getAbbreviation();
+		
+		double magnitude = Math.abs(d);
+		
+		if (magnitude>HELLA) {
 			return FORMAT.format(d/HELLA)+" X"+u.getAbbreviation();
-		} else if (d>YOTTA) {
+		} else if (magnitude>YOTTA) {
 			return FORMAT.format(d/YOTTA)+" Y"+u.getAbbreviation();
-		} else if (d>ZETTA) {
+		} else if (magnitude>ZETTA) {
 			return FORMAT.format(d/ZETTA)+" Z"+u.getAbbreviation();
-		} else if (d>EXA) {
+		} else if (magnitude>EXA) {
 			return FORMAT.format(d/EXA)+" E"+u.getAbbreviation();
-		} else if (d>PETA) {
+		} else if (magnitude>PETA) {
 			return FORMAT.format(d/PETA)+" P"+u.getAbbreviation();
-		} else if (d>TERA) {
+		} else if (magnitude>TERA) {
 			return FORMAT.format(d/TERA)+" T"+u.getAbbreviation();
-		} else if (d>GIGA) {
+		} else if (magnitude>GIGA) {
 			return FORMAT.format(d/GIGA)+" G"+u.getAbbreviation();
-		} else if (d>MEGA) {
+		} else if (magnitude>MEGA) {
 			return FORMAT.format(d/MEGA)+" M"+u.getAbbreviation();
-		} else if (d>KILO) {
+		} else if (magnitude>KILO) {
 			return FORMAT.format(d/KILO)+" k"+u.getAbbreviation();
 			
 		//if we ever added femto/atto/zepto/yocto they'd go here
 		//dividing by the reciprocal down there should totally work. It's not the most efficient way, but it's consistent.
 			
-		} else if (d<NANO) {
+		} else if (magnitude<NANO) {
 			return FORMAT.format(d/PICO)+" p"+u.getAbbreviation();
-		} else if (d<MICRO) {
+		} else if (magnitude<MICRO) {
 			return FORMAT.format(d/NANO)+" n"+u.getAbbreviation();
-		} else if (d<MILLI) {
+		} else if (magnitude<MILLI) {
 			return FORMAT.format(d/MICRO)+" µ"+u.getAbbreviation();
-		} else if (d<1.0) {
+		} else if (magnitude<1.0) {
 			return FORMAT.format(d/MILLI)+" m"+u.getAbbreviation();
 		} else {
 			return FORMAT.format(d)+" "+u.getAbbreviation();
