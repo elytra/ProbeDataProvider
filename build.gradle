@@ -26,7 +26,7 @@ apply plugin: 'maven'
 
 group = "com.elytradev"
 archivesBaseName = "ProbeDataProviderAPI"
-version = "MC1.11.2_ver1.0"
+version = "MC1.11.2_ver1.1"
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
