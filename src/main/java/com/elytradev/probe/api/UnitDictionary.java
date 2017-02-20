@@ -59,9 +59,11 @@ public class UnitDictionary {
 		register(BYTES);
 		
 		register(FORGE_ENERGY);
+		register(FU_PER_TICK);
 		register(DANKS);
 		
 		register(KELVIN);
+		register(PERCENT);
 	}
 	
 	/**
