@@ -81,7 +81,7 @@ dependencies {
 ext.priv = parseConfig(file('private.properties'))
 
 def parseConfig(File config) {
-	if (!config.exists()) return new Properties()
+	if (!config.exists()) return null
 	config.withReader {
 		def prop = new Properties()
 		prop.load(it)
@@ -89,12 +89,14 @@ def parseConfig(File config) {
 	}
 }
 
-uploadArchives {
-	repositories.mavenDeployer {
-		configuration = configurations.deploy
-		pom.artifactId = 'probedataproviderapi'
-		repository(url: "sftp://"+priv.sftpHost+priv.sftpPath) {
-			authentication(userName: priv.sftpUser, privateKey: file(priv.sftpKey))
+if (ext.priv != null) {
+	uploadArchives {
+		repositories.mavenDeployer {
+			configuration = configurations.deploy
+			pom.artifactId = 'probedataproviderapi'
+			repository(url: "sftp://"+priv.sftpHost+priv.sftpPath) {
+				authentication(userName: priv.sftpUser, privateKey: file(priv.sftpKey))
+			}
 		}
 	}
 }
