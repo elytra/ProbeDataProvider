@@ -216,7 +216,7 @@ public class ProbeData implements IProbeData {
 	}
 
 	private static int stackHashCode(ItemStack is) {
-		if (is.isEmpty()) return 0;
+		if (is == null || is.isEmpty()) return 0;
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + is.getItem().hashCode();
@@ -227,6 +227,8 @@ public class ProbeData implements IProbeData {
 	}
 
 	private static boolean stackListsEqual(List<ItemStack> a, List<ItemStack> b) {
+		if (a == b) return true;
+		if (a == null || b == null) return false;
 		if (a.size() != b.size()) return false;
 		for (int i = 0; i < a.size(); i++) {
 			ItemStack isa = a.get(i);
@@ -237,7 +239,6 @@ public class ProbeData implements IProbeData {
 		}
 		return true;
 	}
-	
 	
 
 }
