@@ -24,7 +24,7 @@ apply plugin: 'maven'
 
 
 
-group = "io.github.elytra"
+group = "com.elytradev"
 archivesBaseName = "ProbeDataProviderAPI"
 version = "MC1.11.2_ver1.0"
 
@@ -42,7 +42,7 @@ minecraft {
 
 	runDir = "minecraft"
 
-	replaceIn 'src/main/java/io/github/elytra/dataprovider/ProbeDataProviderPlugin.java'
+	replaceIn 'src/main/java/com/elytradev/dataprovider/ProbeDataProviderPlugin.java'
 	replace '@VERSION@', project.version
 }
 
