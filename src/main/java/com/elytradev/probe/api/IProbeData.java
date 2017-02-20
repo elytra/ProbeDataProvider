@@ -1,4 +1,4 @@
-package io.github.elytra.probe.api;
+package com.elytradev.probe.api;
 
 import javax.annotation.Nonnull;
 
