@@ -1,26 +1,26 @@
 buildscript {
-
-  repositories {
-    mavenCentral()
-    jcenter()
-    maven {
-      name = "forge"
-      url = "http://files.minecraftforge.net/maven"
-    }
-    maven {
-      name = "sonatype"
-      url = "https://oss.sonatype.org/content/repositories/snapshots/"
-    }
-  }
-  dependencies {
-    classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
-    classpath 'me.tatarka:gradle-retrolambda:3.2.0'
-  }
+	repositories {
+		mavenCentral()
+		jcenter()
+		maven {
+			name = "forge"
+			url = "http://files.minecraftforge.net/maven"
+		}
+		maven {
+			name = "sonatype"
+			url = "https://oss.sonatype.org/content/repositories/snapshots/"
+		}
+	}
+	dependencies {
+		classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
+		classpath 'me.tatarka:gradle-retrolambda:3.2.0'
+	}
 }
 
 apply plugin: 'java'
 apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'maven'
 
 
 
@@ -32,36 +32,69 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 retrolambda {
-  javaVersion JavaVersion.VERSION_1_6
-  defaultMethods true
+	javaVersion JavaVersion.VERSION_1_6
+	defaultMethods true
 }
 
 minecraft {
-  version = "1.11.2-13.20.0.2226";
-  mappings = "snapshot_20170205";
+	version = "1.11.2-13.20.0.2226";
+	mappings = "snapshot_20170205";
 
-  runDir = "minecraft"
+	runDir = "minecraft"
 
-  replaceIn 'src/main/java/io/github/elytra/dataprovider/ProbeDataProviderPlugin.java'
-  replace '@VERSION@', project.version
+	replaceIn 'src/main/java/io/github/elytra/dataprovider/ProbeDataProviderPlugin.java'
+	replace '@VERSION@', project.version
 }
 
 processResources {
-  // this will ensure that this task is redone when the versions change.
-  inputs.property "version", project.version
-  inputs.property "mcversion", project.minecraft.version
+	// this will ensure that this task is redone when the versions change.
+	inputs.property "version", project.version
+	inputs.property "mcversion", project.minecraft.version
 
-  // replace stuff in mcmod.info, nothing else
-  from(sourceSets.main.resources.srcDirs) {
-    include 'mcmod.info'
+	// replace stuff in mcmod.info, nothing else
+	from(sourceSets.main.resources.srcDirs) {
+		include 'mcmod.info'
 
-    // replace version and mcversion
-    expand 'version':project.version, 'mcversion':project.minecraft.version
-  }
+		// replace version and mcversion
+		expand 'version':project.version, 'mcversion':project.minecraft.version
+	}
 
-  // copy everything else, thats not the mcmod.info
-  from(sourceSets.main.resources.srcDirs) {
-    exclude 'mcmod.info'
-    exclude '*.xcf' //Always exclude gimp source files.
-  }
+	// copy everything else, thats not the mcmod.info
+	from(sourceSets.main.resources.srcDirs) {
+		exclude 'mcmod.info'
+		exclude '*.xcf' //Always exclude gimp source files.
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+configurations {
+	deploy
+}
+
+dependencies {
+	deploy 'org.apache.maven.wagon:wagon-ssh:2.10'
+}
+
+ext.priv = parseConfig(file('private.properties'))
+
+def parseConfig(File config) {
+	if (!config.exists()) return new Properties()
+	config.withReader {
+		def prop = new Properties()
+		prop.load(it)
+		return (new ConfigSlurper().parse(prop))
+	}
+}
+
+uploadArchives {
+	repositories.mavenDeployer {
+		configuration = configurations.deploy
+		pom.artifactId = 'probedataproviderapi'
+		repository(url: "sftp://"+priv.sftpHost+priv.sftpPath) {
+			authentication(userName: priv.sftpUser, privateKey: file(priv.sftpKey))
+		}
+	}
 }
