@@ -1,7 +1,8 @@
 package com.elytradev.probe.api.impl;
 
+import java.text.NumberFormat;
+
 import com.elytradev.probe.api.IUnit;
-import com.ibm.icu.text.NumberFormat;
 
 public class Unit implements IUnit {
 	private final String name;

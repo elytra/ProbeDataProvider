@@ -5,6 +5,7 @@ import java.util.HashMap;
 import javax.annotation.Nullable;
 
 import com.elytradev.probe.api.impl.Unit;
+import com.google.common.collect.HashBiMap;
 
 import net.minecraftforge.fluids.Fluid;
 
@@ -46,7 +47,7 @@ public class UnitDictionary {
 	
 	
 	private HashMap<String, IUnit> registry = new HashMap<>();
-	private HashMap<IUnit, Fluid> fluidUnits = new HashMap<>();
+	private HashBiMap<IUnit, Fluid> fluidUnits = HashBiMap.create();
 	
 	private UnitDictionary() {
 		register(BUCKETS_ANY);
@@ -111,5 +112,15 @@ public class UnitDictionary {
 	@Nullable
 	public Fluid getFluid(IUnit unit) {
 		return fluidUnits.get(unit);
+	}
+	
+	/**
+	 * Finds the IUnit that corresponds to this Fluid, if it exists
+	 * @param fluid the Fluid to get a unit for
+	 * @return the IUnit this Fluid is associated with, or null if this Fluid doesn't have a unit yet.
+	 */
+	@Nullable
+	public IUnit getUnit(Fluid fluid) {
+		return fluidUnits.inverse().get(fluid);
 	}
 }
