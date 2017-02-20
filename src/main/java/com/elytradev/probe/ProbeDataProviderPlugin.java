@@ -6,14 +6,19 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.elytradev.probe.api.IProbeDataProvider;
+import com.elytradev.probe.api.UnitDictionary;
 import com.elytradev.probe.api.impl.ProbeDataProviderDefault;
 import com.elytradev.probe.api.impl.ProbeDataSerializer;
+import com.elytradev.probe.api.impl.Unit;
 
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 @Mod(modid=ProbeDataProviderPlugin.MODID, name="ProbeDataProvider", version="@VERSION@")
@@ -34,5 +39,14 @@ public class ProbeDataProviderPlugin {
 		//CONFIG.save();
 		
 		CapabilityManager.INSTANCE.register(IProbeDataProvider.class, new ProbeDataSerializer(), ProbeDataProviderDefault::new);
+	}
+	
+	@EventHandler
+	public void onPostInit(FMLPostInitializationEvent e) {
+		UnitDictionary dict = UnitDictionary.getInstance();
+		for(Fluid fluid : FluidRegistry.getRegisteredFluids().values()) {
+			Unit fluidUnit = new Unit("buckets_"+fluid.getName(),"B", fluid.getColor());
+			dict.register(fluidUnit, fluid);
+		}
 	}
 }
