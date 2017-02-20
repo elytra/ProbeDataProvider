@@ -6,7 +6,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.google.common.collect.ImmutableList;
-
 import io.github.elytra.probe.api.IProbeData;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
@@ -14,9 +13,9 @@ import net.minecraft.util.text.TextComponentString;
 
 public class ProbeData implements IProbeData {
 	private ITextComponent label = null;
-	private int barMin = -1;
-	private int barCur = -1;
-	private int barMax = -1;
+	private double barMin = Double.NaN;
+	private double barCur = Double.NaN;
+	private double barMax = Double.NaN;
 	private String barUnit = null;
 	private ImmutableList<ItemStack> inventory = null;
 	
@@ -74,7 +73,7 @@ public class ProbeData implements IProbeData {
 	 * @param unit The unit that the quantities in the bar are expressed in. Use an empty string to specify no units.
 	 * @return this ProbeData
 	 */
-	public ProbeData withBar(int minimum, int current, int maximum, String unit) {
+	public ProbeData withBar(double minimum, double current, double maximum, String unit) {
 		this.barMin = minimum;
 		this.barCur = current;
 		this.barMax = maximum;
@@ -99,7 +98,7 @@ public class ProbeData implements IProbeData {
 
 	@Override
 	public boolean hasBar() {
-		return barCur!=-1 && barMax!=-1;
+		return !Double.isNaN(barMin) && !Double.isNaN(barCur) && !Double.isNaN(barMax);
 	}
 
 	@Override
@@ -109,17 +108,17 @@ public class ProbeData implements IProbeData {
 	}
 
 	@Override
-	public int getBarMinimum() {
+	public double getBarMinimum() {
 		return barMin;
 	}
 	
 	@Override
-	public int getBarCurrent() {
+	public double getBarCurrent() {
 		return barCur;
 	}
 
 	@Override
-	public int getBarMaximum() {
+	public double getBarMaximum() {
 		return barMax;
 	}
 
@@ -140,13 +139,19 @@ public class ProbeData implements IProbeData {
 		return inventory;
 	}
 
+	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + barCur;
-		result = prime * result + barMax;
-		result = prime * result + barMin;
+		long temp;
+		temp = Double.doubleToLongBits(barCur);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(barMax);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(barMin);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + ((barUnit == null) ? 0 : barUnit.hashCode());
 		result = prime * result + ((inventory == null) ? 0 : stackListHashCode(inventory));
 		try {
@@ -155,25 +160,6 @@ public class ProbeData implements IProbeData {
 			// Some TextComponent implementations have broken hashCode methods
 			// Ignore Mojang's quality code
 		}
-		return result;
-	}
-
-	private static int stackListHashCode(List<ItemStack> li) {
-		int result = 1;
-		for (ItemStack is : li) {
-			result = 31 * result + (is == null ? 0 : stackHashCode(is));
-		}
-		return result;
-	}
-
-	private static int stackHashCode(ItemStack is) {
-		if (is.isEmpty()) return 0;
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + is.getItem().hashCode();
-		result = prime * result + is.getCount();
-		result = prime * result + is.getMetadata();
-		result = prime * result + (is.hasTagCompound() ? is.getTagCompound().hashCode() : 0);
 		return result;
 	}
 
@@ -189,13 +175,16 @@ public class ProbeData implements IProbeData {
 			return false;
 		}
 		ProbeData other = (ProbeData) obj;
-		if (barCur != other.barCur) {
+		if (Double.doubleToLongBits(barCur) != Double
+				.doubleToLongBits(other.barCur)) {
 			return false;
 		}
-		if (barMax != other.barMax) {
+		if (Double.doubleToLongBits(barMax) != Double
+				.doubleToLongBits(other.barMax)) {
 			return false;
 		}
-		if (barMin != other.barMin) {
+		if (Double.doubleToLongBits(barMin) != Double
+				.doubleToLongBits(other.barMin)) {
 			return false;
 		}
 		if (barUnit == null) {
@@ -220,6 +209,25 @@ public class ProbeData implements IProbeData {
 			return false;
 		}
 		return true;
+	}
+
+	private static int stackListHashCode(List<ItemStack> li) {
+		int result = 1;
+		for (ItemStack is : li) {
+			result = 31 * result + (is == null ? 0 : stackHashCode(is));
+		}
+		return result;
+	}
+
+	private static int stackHashCode(ItemStack is) {
+		if (is.isEmpty()) return 0;
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + is.getItem().hashCode();
+		result = prime * result + is.getCount();
+		result = prime * result + is.getMetadata();
+		result = prime * result + (is.hasTagCompound() ? is.getTagCompound().hashCode() : 0);
+		return result;
 	}
 
 	private static boolean stackListsEqual(List<ItemStack> a, List<ItemStack> b) {

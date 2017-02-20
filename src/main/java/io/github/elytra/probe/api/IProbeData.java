@@ -88,21 +88,21 @@ public interface IProbeData {
 	 * the bar should be rendered "empty".
 	 * @return The lower bound for the bar's numeric values.
 	 */
-	public int getBarMinimum();
+	public double getBarMinimum();
 	
 	/**
 	 * Gets the current value to display on this ProbeData's bar. This number must be between the bar's minimum and
 	 * maximum, inclusive.
 	 * @return The current numeric value of the bar.
 	 */
-	public int getBarCurrent();
+	public double getBarCurrent();
 	
 	/**
 	 * Gets the highest possible value expressable on this ProbeData's bar. Often this is the total capacity of a fluid
 	 * or energy storage capability.
 	 * @return The upper bound for the bar's numeric values.
 	 */
-	public int getBarMaximum();
+	public double getBarMaximum();
 	
 	/**
 	 * Gets the abbreviated proper unit for this ProbeData's bar. For example, something supplying 2200 Forge Units of
