@@ -31,8 +31,6 @@ public class BinaryUnit extends Unit {
 	public String format(double d) {
 		String space = (spaceAfterNumber) ? " " : "";
 		
-		if (d==0) return format.format(d)+space+getAbbreviation();
-		
 		double magnitude = Math.abs(d);
 		
 		if (magnitude>HEBI) {
