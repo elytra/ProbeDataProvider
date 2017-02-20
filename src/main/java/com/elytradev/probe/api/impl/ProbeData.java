@@ -1,13 +1,14 @@
-package io.github.elytra.probe.api.impl;
+package com.elytradev.probe.api.impl;
 
 import java.util.List;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.elytradev.probe.api.IProbeData;
+import com.elytradev.probe.api.IUnit;
 import com.google.common.collect.ImmutableList;
-import io.github.elytra.probe.api.IProbeData;
-import io.github.elytra.probe.api.IUnit;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;

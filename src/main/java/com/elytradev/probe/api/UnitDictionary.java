@@ -1,10 +1,10 @@
-package io.github.elytra.probe.api;
+package com.elytradev.probe.api;
 
 import java.util.HashMap;
 
 import javax.annotation.Nullable;
 
-import io.github.elytra.probe.api.impl.Unit;
+import com.elytradev.probe.api.impl.Unit;
 
 /**
  * A central place for unit registrations. It's highly reccommended to register your unit on both the client *and* the

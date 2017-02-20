@@ -1,6 +1,7 @@
-package io.github.elytra.probe.api.impl;
+package com.elytradev.probe.api.impl;
 
-import io.github.elytra.probe.api.IProbeDataProvider;
+import com.elytradev.probe.api.IProbeDataProvider;
+
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;

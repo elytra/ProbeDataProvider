@@ -1,4 +1,4 @@
-package io.github.elytra.probe.api;
+package com.elytradev.probe.api;
 
 /**
  * Represents information about a quantity being expressed. Nominally, the unit of measurement, but also the kind of

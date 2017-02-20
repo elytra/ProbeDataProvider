@@ -1,8 +1,7 @@
-package io.github.elytra.probe.api.impl;
+package com.elytradev.probe.api.impl;
 
+import com.elytradev.probe.api.IUnit;
 import com.ibm.icu.text.NumberFormat;
-
-import io.github.elytra.probe.api.IUnit;
 
 public class Unit implements IUnit {
 	private final String name;
