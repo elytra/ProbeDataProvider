@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 
 import com.google.common.collect.ImmutableList;
 import io.github.elytra.probe.api.IProbeData;
+import io.github.elytra.probe.api.IUnit;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
@@ -16,7 +17,7 @@ public class ProbeData implements IProbeData {
 	private double barMin = Double.NaN;
 	private double barCur = Double.NaN;
 	private double barMax = Double.NaN;
-	private String barUnit = null;
+	private IUnit barUnit = null;
 	private ImmutableList<ItemStack> inventory = null;
 	
 	/**
@@ -56,12 +57,7 @@ public class ProbeData implements IProbeData {
 	 * @return this ProbeData
 	 */
 	public ProbeData withLabel(ITextComponent label) {
-		//TODO: Consider making multiple withLabel calls concatenate them. That might just wind up being confusing and irreversible.
-		//if (this.label==null) {
 			this.label = label;
-		//} else {
-		//	this.label = this.label.appendSibling(label);
-		//}
 		return this;
 	}
 	
@@ -73,7 +69,7 @@ public class ProbeData implements IProbeData {
 	 * @param unit The unit that the quantities in the bar are expressed in. Use an empty string to specify no units.
 	 * @return this ProbeData
 	 */
-	public ProbeData withBar(double minimum, double current, double maximum, String unit) {
+	public ProbeData withBar(double minimum, double current, double maximum, IUnit unit) {
 		this.barMin = minimum;
 		this.barCur = current;
 		this.barMax = maximum;
@@ -123,9 +119,9 @@ public class ProbeData implements IProbeData {
 	}
 
 	@Override
-	@Nonnull
-	public String getBarUnit() {
-		return barUnit!=null ? barUnit : "";
+	@Nullable
+	public IUnit getBarUnit() {
+		return barUnit;
 	}
 
 	@Override

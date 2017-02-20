@@ -111,7 +111,7 @@ public interface IProbeData {
 	 * @return The unit for the bar, or an empty String if there's no unit.
 	 */
 	@Nonnull
-	public String getBarUnit();
+	public IUnit getBarUnit();
 	
 	/**
 	 * Gets any inventory associated with this ProbeData. In the case where only a single itemslot is exposed, a probe
