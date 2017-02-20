@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import javax.annotation.Nullable;
 
+import com.elytradev.probe.api.impl.BinaryUnit;
 import com.elytradev.probe.api.impl.Unit;
 import com.google.common.collect.HashBiMap;
 
@@ -26,7 +27,7 @@ public class UnitDictionary {
 	//public static final Unit BUCKETS_STEAM     = new Unit("buckets_steam",    "B", 0xB0BEC5); //200 blue grey
 	
 	//Data
-	public static final Unit BYTES             = new Unit("bytes",            "B",   0x76FF03); //A400 light green
+	public static final BinaryUnit BYTES       = new BinaryUnit("bytes",      "B",   0x76FF03); //A400 light green
 	
 	//Energy
 	public static final Unit FORGE_ENERGY      = new Unit("forge_energy",     "FU",  0xD50000); //A700 red
