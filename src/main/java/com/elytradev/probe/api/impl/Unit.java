@@ -5,18 +5,33 @@ import java.text.NumberFormat;
 import com.elytradev.probe.api.IUnit;
 
 public class Unit implements IUnit {
+	private static final NumberFormat FORMAT_STANDARD = NumberFormat.getNumberInstance();
+	static {
+		FORMAT_STANDARD.setMinimumFractionDigits(0);
+		FORMAT_STANDARD.setMaximumFractionDigits(2);
+	}
+	
+	
 	private final String name;
 	private final String abbreviation;
 	private final int barColor;
+	private final NumberFormat format;
+	private final boolean spaceAfterNumber;
 	
 	public Unit(String name, String abbreviation) {
-		this(name, abbreviation, 0xAAAAAA);
+		this(name, abbreviation, 0xAAAAAA, FORMAT_STANDARD, true);
 	}
 	
 	public Unit(String name, String abbreviation, int barColor) {
+		this(name, abbreviation, barColor, FORMAT_STANDARD, true);
+	}
+	
+	public Unit(String name, String abbreviation, int barColor, NumberFormat nfmt, boolean spaceAfterNumber) {
 		this.name = name;
 		this.abbreviation = abbreviation;
 		this.barColor = barColor;
+		this.format = nfmt;
+		this.spaceAfterNumber = spaceAfterNumber;
 	}
 	
 	@Override
@@ -34,8 +49,6 @@ public class Unit implements IUnit {
 		return barColor;
 	}
 
-	/* Convenience Methods */
-	
 	private static final double HELLA = 1_000_000_000_000_000_000_000_000_000D;
 	private static final double YOTTA = 1_000_000_000_000_000_000_000_000D;
 	private static final double ZETTA = 1_000_000_000_000_000_000_000D;
@@ -49,49 +62,47 @@ public class Unit implements IUnit {
 	private static final double MICRO = 1/1_000_000D;
 	private static final double NANO  = 1/1_000_000_000D;
 	private static final double PICO  = 1/1_000_000_000_000D;
-	private static final NumberFormat FORMAT = NumberFormat.getNumberInstance();
-	static {
-		FORMAT.setMinimumFractionDigits(0);
-		FORMAT.setMaximumFractionDigits(2);
-	}
 	
-	public static String formatSI(double d, IUnit u) {
-		if (d==0) return FORMAT.format(d)+" "+u.getAbbreviation();
+	@Override
+	public String format(double d) {
+		String space = (spaceAfterNumber) ? " " : "";
+		
+		if (d==0) return format.format(d)+space+getAbbreviation();
 		
 		double magnitude = Math.abs(d);
 		
 		if (magnitude>HELLA) {
-			return FORMAT.format(d/HELLA)+" X"+u.getAbbreviation();
+			return format.format(d/HELLA)+space+"X"+getAbbreviation();
 		} else if (magnitude>YOTTA) {
-			return FORMAT.format(d/YOTTA)+" Y"+u.getAbbreviation();
+			return format.format(d/YOTTA)+space+"Y"+getAbbreviation();
 		} else if (magnitude>ZETTA) {
-			return FORMAT.format(d/ZETTA)+" Z"+u.getAbbreviation();
+			return format.format(d/ZETTA)+space+"Z"+getAbbreviation();
 		} else if (magnitude>EXA) {
-			return FORMAT.format(d/EXA)+" E"+u.getAbbreviation();
+			return format.format(d/EXA)+space+"E"+getAbbreviation();
 		} else if (magnitude>PETA) {
-			return FORMAT.format(d/PETA)+" P"+u.getAbbreviation();
+			return format.format(d/PETA)+space+"P"+getAbbreviation();
 		} else if (magnitude>TERA) {
-			return FORMAT.format(d/TERA)+" T"+u.getAbbreviation();
+			return format.format(d/TERA)+space+"T"+getAbbreviation();
 		} else if (magnitude>GIGA) {
-			return FORMAT.format(d/GIGA)+" G"+u.getAbbreviation();
+			return format.format(d/GIGA)+space+"G"+getAbbreviation();
 		} else if (magnitude>MEGA) {
-			return FORMAT.format(d/MEGA)+" M"+u.getAbbreviation();
+			return format.format(d/MEGA)+space+"M"+getAbbreviation();
 		} else if (magnitude>KILO) {
-			return FORMAT.format(d/KILO)+" k"+u.getAbbreviation();
+			return format.format(d/KILO)+space+"k"+getAbbreviation();
 			
 		//if we ever added femto/atto/zepto/yocto they'd go here
 		//dividing by the reciprocal down there should totally work. It's not the most efficient way, but it's consistent.
 			
 		} else if (magnitude<NANO) {
-			return FORMAT.format(d/PICO)+" p"+u.getAbbreviation();
+			return format.format(d/PICO)+space+"p"+getAbbreviation();
 		} else if (magnitude<MICRO) {
-			return FORMAT.format(d/NANO)+" n"+u.getAbbreviation();
+			return format.format(d/NANO)+space+"n"+getAbbreviation();
 		} else if (magnitude<MILLI) {
-			return FORMAT.format(d/MICRO)+" µ"+u.getAbbreviation();
+			return format.format(d/MICRO)+space+"µ"+getAbbreviation();
 		} else if (magnitude<1.0) {
-			return FORMAT.format(d/MILLI)+" m"+u.getAbbreviation();
+			return format.format(d/MILLI)+space+"m"+getAbbreviation();
 		} else {
-			return FORMAT.format(d)+" "+u.getAbbreviation();
+			return format.format(d)+space+getAbbreviation();
 		}
 	}
 }
