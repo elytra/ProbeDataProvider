@@ -5,7 +5,7 @@ import java.text.NumberFormat;
 import com.elytradev.probe.api.IUnit;
 
 public class Unit implements IUnit {
-	private static final NumberFormat FORMAT_STANDARD = NumberFormat.getNumberInstance();
+	public static final NumberFormat FORMAT_STANDARD = NumberFormat.getNumberInstance();
 	static {
 		FORMAT_STANDARD.setMinimumFractionDigits(0);
 		FORMAT_STANDARD.setMaximumFractionDigits(2);
