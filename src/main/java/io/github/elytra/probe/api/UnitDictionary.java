@@ -30,7 +30,9 @@ public class UnitDictionary {
 	public static final Unit DANKS        = new Unit("danks",        "Dk", 0x512DA8); //700 deep purple (from Tesla capabilities)
 	
 	//Temperature for ITemperature
-	public static final Unit KELVIN       = new Unit("kelvin",       "°K", 0xF70000);
+	public static final Unit KELVIN       = new Unit("kelvin",       "°K", 0xFF0000); //Programmer Red
+	
+	public static final Unit PERCENT      = new Unit("percent",       "%");
 	
 	
 	public static final UnitDictionary getInstance() {
