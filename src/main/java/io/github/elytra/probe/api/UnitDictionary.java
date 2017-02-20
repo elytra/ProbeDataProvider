@@ -27,6 +27,7 @@ public class UnitDictionary {
 	
 	//Energy
 	public static final Unit FORGE_ENERGY = new Unit("forge_energy", "FU", 0xD50000); //A700 red
+	public static final Unit DANKS        = new Unit("danks",        "Dk", 0x512DA8); //700 deep purple (from Tesla capabilities)
 	
 	
 	
@@ -47,7 +48,9 @@ public class UnitDictionary {
 		register(MB_STEAM);
 		
 		register(BYTES);
+		
 		register(FORGE_ENERGY);
+		register(DANKS);
 	}
 	
 	/**
