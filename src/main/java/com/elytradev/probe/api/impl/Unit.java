@@ -82,7 +82,7 @@ public class Unit implements IUnit {
 		} else if (d<MICRO) {
 			return FORMAT.format(d/NANO)+" n"+u.getAbbreviation();
 		} else if (d<MILLI) {
-			return FORMAT.format(d/MICRO)+" µ"+u.getAbbreviation();
+			return FORMAT.format(d/MICRO)+" Âµ"+u.getAbbreviation();
 		} else if (d<1.0) {
 			return FORMAT.format(d/MILLI)+" m"+u.getAbbreviation();
 		} else {
