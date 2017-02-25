@@ -2,6 +2,10 @@ package com.elytradev.probe.api.impl;
 
 import java.text.NumberFormat;
 
+/**
+ * A Unit that uses binary prefixes to format numbers, turning things like
+ * "1200" into "1.17Ki"
+ */
 public class BinaryUnit extends Unit {
 
 	public BinaryUnit(String name, String abbreviation, int barColor, NumberFormat nfmt, boolean spaceAfterNumber) {

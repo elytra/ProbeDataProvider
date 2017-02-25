@@ -6,36 +6,38 @@ import java.util.HashMap;
 import javax.annotation.Nullable;
 
 import com.elytradev.probe.api.impl.BinaryUnit;
+import com.elytradev.probe.api.impl.SIUnit;
 import com.elytradev.probe.api.impl.Unit;
 import com.google.common.collect.HashBiMap;
 
 import net.minecraftforge.fluids.Fluid;
 
 /**
- * A central place for unit registrations. It's highly reccommended to register your unit on both the client *and* the
+ * A central place for unit registrations. It's highly recommended to register your unit on both the client *and* the
  * server.
  */
 public class UnitDictionary {
 	private static UnitDictionary INSTANCE;
 	
 	//Fluids
-	public static final Unit BUCKETS_ANY       = new Unit("buckets",          "B", 0x283593); //800 indigo
-	//public static final Unit BUCKETS_WATER     = new Unit("buckets_water",    "B", 0x1976D2); //700 blue
-	//public static final Unit BUCKETS_LAVA      = new Unit("buckets_lava",     "B", 0xFF8F00); //800 amber
-	//public static final Unit BUCKETS_REDSTONE  = new Unit("buckets_redstone", "B", 0xE53935); //600 red
-	//public static final Unit BUCKETS_OIL       = new Unit("buckets_oil",      "B", 0x212121); //900 grey
-	//public static final Unit BUCKETS_STEAM     = new Unit("buckets_steam",    "B", 0xB0BEC5); //200 blue grey
+	public static final Unit BUCKETS_ANY       = new SIUnit("buckets",          "B", 0x283593); //800 indigo
+	//public static final Unit BUCKETS_WATER     = new SIUnit("buckets_water",    "B", 0x1976D2); //700 blue
+	//public static final Unit BUCKETS_LAVA      = new SIUnit("buckets_lava",     "B", 0xFF8F00); //800 amber
+	//public static final Unit BUCKETS_REDSTONE  = new SIUnit("buckets_redstone", "B", 0xE53935); //600 red
+	//public static final Unit BUCKETS_OIL       = new SIUnit("buckets_oil",      "B", 0x212121); //900 grey
+	//public static final Unit BUCKETS_STEAM     = new SIUnit("buckets_steam",    "B", 0xB0BEC5); //200 blue grey
 	
 	//Data
 	public static final BinaryUnit BYTES       = new BinaryUnit("bytes",      "B",   0x76FF03); //A400 light green
 	
 	//Energy
-	public static final Unit FORGE_ENERGY      = new Unit("forge_energy",     "FU",  0xD50000); //A700 red
-	public static final Unit FU_PER_TICK       = new Unit("fu_per_tick",      "FU/t",0xD50000); //Also A700 red
-	public static final Unit DANKS             = new Unit("danks",            "Dk",  0x512DA8); //700 deep purple (from Tesla capabilities)
+	public static final Unit FORGE_ENERGY      = new SIUnit("forge_energy",     "FU",  0xD50000); //A700 red
+	public static final Unit FU_PER_TICK       = new SIUnit("fu_per_tick",      "FU/t",0xD50000); //Also A700 red
+	public static final Unit DANKS             = new SIUnit("danks",            "Dk",  0x512DA8); //700 deep purple (from Tesla capabilities)
+	public static final Unit DANKS_PER_TICK    = new SIUnit("danks_per_tick",   "Dk/t",0x512DA8); //Also 700 deep purple
 	
 	//Temperature for ITemperature
-	public static final Unit KELVIN            = new Unit("kelvin",           "°K",  0xFF0000); //Programmer Red
+	public static final Unit KELVIN            = new SIUnit("kelvin",           "°K",  0xFF0000); //Programmer Red
 	
 	public static final Unit PERCENT           = new Unit("percent",           "%",  0xAAAAAA, NumberFormat.getIntegerInstance(), false);
 	

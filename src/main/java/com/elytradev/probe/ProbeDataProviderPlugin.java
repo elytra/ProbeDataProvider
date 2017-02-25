@@ -9,6 +9,7 @@ import com.elytradev.probe.api.IProbeDataProvider;
 import com.elytradev.probe.api.UnitDictionary;
 import com.elytradev.probe.api.impl.ProbeDataProviderDefault;
 import com.elytradev.probe.api.impl.ProbeDataSerializer;
+import com.elytradev.probe.api.impl.SIUnit;
 import com.elytradev.probe.api.impl.Unit;
 
 import net.minecraftforge.common.capabilities.CapabilityManager;
@@ -45,7 +46,7 @@ public class ProbeDataProviderPlugin {
 	public void onPostInit(FMLPostInitializationEvent e) {
 		UnitDictionary dict = UnitDictionary.getInstance();
 		for(Fluid fluid : FluidRegistry.getRegisteredFluids().values()) {
-			Unit fluidUnit = new Unit("buckets_"+fluid.getName(),"B", fluid.getColor());
+			Unit fluidUnit = new SIUnit("buckets_"+fluid.getName(), "B", fluid.getColor());
 			dict.register(fluidUnit, fluid);
 		}
 	}
