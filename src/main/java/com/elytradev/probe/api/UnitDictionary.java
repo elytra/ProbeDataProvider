@@ -29,7 +29,7 @@ public class UnitDictionary {
 	//public static final Unit BUCKETS_STEAM     = new SIUnit("buckets_steam",    "B", 0xB0BEC5); //200 blue grey
 	
 	//Data
-	public static final BinaryUnit BYTES       = new BinaryUnit("bytes",      "B",   0x76FF03); //A400 light green
+	public static final BinaryUnit BYTES       = new BinaryUnit("bytes",        "B",   0x76FF03); //A400 light green
 	
 	//Energy
 	public static final Unit FORGE_ENERGY      = new SIUnit("forge_energy",     "FU",  0xD50000); //A700 red
@@ -40,10 +40,10 @@ public class UnitDictionary {
 	//Temperature for ITemperature
 	public static final Unit KELVIN            = new SIUnit("kelvin",           "°K",  0xFF0000); //Programmer Red
 	
-	public static final Unit PERCENT           = new Unit("percent",           "%",  0xAAAAAA, NumberFormat.getIntegerInstance(), false);
+	public static final Unit PERCENT           = new Unit("percent",            "%",   0xAAAAAA, NumberFormat.getIntegerInstance(), false);
 	
 	//Time
-	public static final Unit TICKS             = new TicksUnit("ticks", 0xAAAAAA); // Terrified Grey
+	public static final Unit TICKS             = new TicksUnit("ticks",                0xAAAAAA); // Terrified Grey
 	
 	
 	public static final UnitDictionary getInstance() {
