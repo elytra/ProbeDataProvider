@@ -38,7 +38,15 @@ public class SIUnit extends Unit {
 	public String format(double d) {
 		String space = (spaceAfterNumber) ? " " : "";
 		
-		if (d == 0) return format.format(d)+space+getAbbreviation();
+		if (d == 0) {
+			return format.format(d)+space+getAbbreviation();
+		} else if (d == Double.POSITIVE_INFINITY) {
+			return "∞"+space+getAbbreviation();
+		} else if (d == Double.NEGATIVE_INFINITY) {
+			return "-∞"+space+getAbbreviation();
+		} else if (Double.isNaN(d)) {
+			return "NaN"+space+getAbbreviation();
+		}
 		
 		double magnitude = Math.abs(d);
 		

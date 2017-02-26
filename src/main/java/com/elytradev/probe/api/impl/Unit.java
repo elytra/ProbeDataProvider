@@ -52,6 +52,13 @@ public class Unit implements IUnit {
 	@Override
 	public String format(double d) {
 		String space = (spaceAfterNumber) ? " " : "";
+		if (d == Double.POSITIVE_INFINITY) {
+			return "∞"+space+getAbbreviation();
+		} else if (d == Double.NEGATIVE_INFINITY) {
+			return "-∞"+space+getAbbreviation();
+		} else if (Double.isNaN(d)) {
+			return "NaN"+space+getAbbreviation();
+		}
 		return format.format(d)+space+getAbbreviation();
 	}
 	
