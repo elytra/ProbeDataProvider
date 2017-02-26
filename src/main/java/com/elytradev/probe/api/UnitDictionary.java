@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 
 import com.elytradev.probe.api.impl.BinaryUnit;
 import com.elytradev.probe.api.impl.SIUnit;
+import com.elytradev.probe.api.impl.TicksUnit;
 import com.elytradev.probe.api.impl.Unit;
 import com.google.common.collect.HashBiMap;
 
@@ -41,6 +42,9 @@ public class UnitDictionary {
 	
 	public static final Unit PERCENT           = new Unit("percent",           "%",  0xAAAAAA, NumberFormat.getIntegerInstance(), false);
 	
+	//Time
+	public static final Unit TICKS             = new TicksUnit("ticks", 0xAAAAAA); // Terrified Grey
+	
 	
 	public static final UnitDictionary getInstance() {
 		if (INSTANCE==null) INSTANCE = new UnitDictionary();
@@ -60,9 +64,12 @@ public class UnitDictionary {
 		register(FORGE_ENERGY);
 		register(FU_PER_TICK);
 		register(DANKS);
+		register(DANKS_PER_TICK);
 		
 		register(KELVIN);
 		register(PERCENT);
+		
+		register(TICKS);
 	}
 	
 	/**
