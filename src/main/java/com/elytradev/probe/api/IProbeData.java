@@ -1,8 +1,8 @@
 package com.elytradev.probe.api;
 
-import javax.annotation.Nonnull;
+import java.util.List;
 
-import com.google.common.collect.ImmutableList;
+import javax.annotation.Nonnull;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
@@ -120,10 +120,10 @@ public interface IProbeData {
 	/**
 	 * Gets any inventory associated with this ProbeData. In the case where only a single itemslot is exposed, a probe
 	 * implementation may choose to enlarge the displayed item.
-	 * @return an ImmutableList containing all visible inventory slots, empty or filled, in this inventory. A probe
+	 * @return a List containing all visible inventory slots, empty or filled, in this inventory. A probe
 	 * implementation is then free to elide stacks or slots in order to present the inventory more succinctly, or
 	 * depending on its configuration.
 	 */
 	@Nonnull
-	public ImmutableList<ItemStack> getInventory();
+	public List<ItemStack> getInventory();
 }
