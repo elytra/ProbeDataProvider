@@ -217,11 +217,11 @@ public class ProbeData implements IProbeData {
 	}
 
 	private static int stackHashCode(ItemStack is) {
-		if (is == null || is.isEmpty()) return 0;
+		if (is == null) return 0;
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + is.getItem().hashCode();
-		result = prime * result + is.getCount();
+		result = prime * result + is.stackSize;
 		result = prime * result + is.getMetadata();
 		result = prime * result + (is.hasTagCompound() ? is.getTagCompound().hashCode() : 0);
 		return result;
