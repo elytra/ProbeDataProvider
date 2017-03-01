@@ -7,8 +7,6 @@ import javax.annotation.Nullable;
 
 import com.elytradev.probe.api.IProbeData;
 import com.elytradev.probe.api.IUnit;
-import com.google.common.collect.ImmutableList;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
@@ -19,7 +17,7 @@ public class ProbeData implements IProbeData {
 	private double barCur = Double.NaN;
 	private double barMax = Double.NaN;
 	private IUnit barUnit = null;
-	private ImmutableList<ItemStack> inventory = null;
+	private List<ItemStack> inventory = null;
 	
 	/**
 	 * Creates a blank data line
@@ -83,7 +81,7 @@ public class ProbeData implements IProbeData {
 	 * @param inventory the contents of all itemslots, full or empty, in this datum.
 	 * @return this ProbeData
 	 */
-	public ProbeData withInventory(@Nonnull ImmutableList<ItemStack> inventory) {
+	public ProbeData withInventory(@Nonnull List<ItemStack> inventory) {
 		this.inventory = inventory;
 		return this;
 	}
@@ -132,7 +130,7 @@ public class ProbeData implements IProbeData {
 
 	@Override
 	@Nullable
-	public ImmutableList<ItemStack> getInventory() {
+	public List<ItemStack> getInventory() {
 		return inventory;
 	}
 
