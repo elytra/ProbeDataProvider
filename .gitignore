@@ -23,3 +23,6 @@ private.properties
 hs_err_pid*
 /.gradle/
 /build/
+
+# Allow wrapper jar
+!gradle/wrapper/gradle-wrapper.jar
