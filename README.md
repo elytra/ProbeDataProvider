@@ -21,6 +21,6 @@ repositories {
 }
 
 dependencies {
-	deobfCompile 'com.elytradev:probedataproviderapi:MC1.11.2_ver1.1.1'
+	deobfCompile 'com.elytradev:probedataproviderapi:MC1.12_ver1.1.1'
 }
 ```

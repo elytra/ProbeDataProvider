@@ -12,33 +12,24 @@ buildscript {
 		}
 	}
 	dependencies {
-		classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
-		classpath 'me.tatarka:gradle-retrolambda:3.2.0'
+		classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
 	}
 }
 
 apply plugin: 'java'
 apply plugin: 'net.minecraftforge.gradle.forge'
-apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'maven'
-
-
 
 group = "com.elytradev"
 archivesBaseName = "ProbeDataProviderAPI"
-version = "MC1.11.2_ver1.1.1"
+version = "MC1.12_ver1.1.1"
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-retrolambda {
-	javaVersion JavaVersion.VERSION_1_6
-	defaultMethods true
-}
-
 minecraft {
-	version = "1.11.2-13.20.0.2226";
-	mappings = "snapshot_20170205";
+	version = "1.12-14.21.0.2344"
+	mappings = "snapshot_20170617"
 
 	runDir = "minecraft"
 
